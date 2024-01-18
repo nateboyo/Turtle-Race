@@ -1,0 +1,39 @@
+from turtle import Turtle, Screen
+import random
+
+# Function to display the winning turtle color
+def display_winner(color):
+    turtle_winner = Turtle()
+    turtle_winner.penup()
+    turtle_winner.hideturtle()
+    turtle_winner.goto(0, -250)
+    turtle_winner.color("black")
+    turtle_winner.write(f"The {color} turtle wins! Yay!", align="center", font=("Arial", 16, "bold"))
+
+my_screen = Screen()
+my_screen.setup(width=800, height=600)
+colors = ["red", "orange", "yellow", "green", "blue", "purple", "pink", "turquoise"]
+all_turtles = []
+is_race_on = True
+
+y_axis = -220
+for turtle_index in range(0, 8):
+    new_turtle = Turtle(shape="turtle")
+    new_turtle.shapesize(2)
+    new_turtle.color(colors[turtle_index])
+    new_turtle.penup()
+    new_turtle.goto(x=-380, y=y_axis)
+    y_axis += 65
+    all_turtles.append(new_turtle)
+
+while is_race_on:
+    for turtle in all_turtles:
+        if turtle.xcor() > 360:
+            is_race_on = False
+            winning_color = turtle.pencolor()
+            display_winner(winning_color)
+
+        rand_distance = random.randint(0, 10)
+        turtle.forward(rand_distance)
+
+my_screen.exitonclick()
